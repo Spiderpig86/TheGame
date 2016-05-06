@@ -16,8 +16,12 @@ public class Game extends Canvas implements Runnable {
 
     private Random r;
     private Handler handler;
-
     private HUD hud;
+    private Spawn spawner;
+
+    long timer;
+    int frames = 0;
+    int fpsFinal = 0;
 
     //Constructor
     public Game() {
@@ -26,15 +30,16 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
-        hud = new HUD();
+        hud = new HUD(this);
+        spawner = new Spawn(handler, hud);
 
         Random r = new Random();
 
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT /2 - 32, ID.Player, handler));
+        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT /2 - 32, ID.Player, Color.white, handler));
         //handler.addObject(new Player(WIDTH / 2 + 32, HEIGHT /2 + 32, ID.Player2));
 
         for (int i = 0; i < 2; i++) {
-            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy));
+            handler.addObject(new T1Square(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.T1Enemy, handler));
         }
     }
 
@@ -58,8 +63,8 @@ public class Game extends Canvas implements Runnable {
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
-        long timer = System.currentTimeMillis();
-        int frames = 0;
+        timer = System.currentTimeMillis();
+        frames = 0;
         while(running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
@@ -75,6 +80,7 @@ public class Game extends Canvas implements Runnable {
             if (System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
                 //System.out.println("FPS: " + frames);
+                fpsFinal = frames;
                 frames = 0;
             }
         }
@@ -84,6 +90,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
 
     private void render() {
@@ -98,6 +105,9 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black); //Stops screen flicker
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        g.setColor(Color.white);
+        g.drawString("FPS: " + fpsFinal, 10, 20);
+
         handler.render(g);
         hud.render(g); //HUD placed under to be placed above environment.
 
@@ -105,7 +115,7 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
 
-    public static int clamp(int var, int min, int max) { //Keeps object from going out of bounds.
+    public static float clamp(float var, float min, float max) { //Keeps object from going out of bounds.
         if (var >= max)
             return var = max;
         else if (var <= min)
@@ -116,5 +126,13 @@ public class Game extends Canvas implements Runnable {
 
     public static void main(String args[]) {
         new Game(); //Needed to instantiate game object.
+    }
+
+    public long getTimer() {
+        return timer;
+    }
+
+    public int getFrames() {
+        return frames;
     }
 }

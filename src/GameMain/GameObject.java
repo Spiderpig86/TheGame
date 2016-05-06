@@ -10,11 +10,11 @@ import java.awt.*;
 
 public abstract class GameObject {
 
-    protected int x, y; //Position
+    protected float x, y; //Position
     protected ID id;
-    protected int velX, velY; //Velocity
+    protected float velX, velY; //Velocity
 
-    public GameObject(int x, int y, ID id) {
+    public GameObject(float x, float y, ID id) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -24,19 +24,19 @@ public abstract class GameObject {
     public abstract void render(Graphics g);
     public abstract Rectangle getBounds();
 
-    public void setX(int x){
+    public void setX(float x){
         this.x = x;
     }
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void getY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -48,19 +48,19 @@ public abstract class GameObject {
         return id;
     }
 
-    public void setVelX(int velX) {
+    public void setVelX(float velX) {
         this.velX = velX;
     }
 
-    public int getVelY() {
+    public float getVelY() {
         return velY;
     }
 
-    public void setVelY(int velY) {
+    public void setVelY(float velY) {
         this.velY = velY;
     }
 
-    public int getVelX() {
+    public float getVelX() {
         return velY;
     }
 }

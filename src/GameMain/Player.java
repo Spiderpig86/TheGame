@@ -10,14 +10,16 @@ public class Player extends GameObject {
 
     Random r = new Random();
     Handler handler;
+    Color color = Color.white;
 
-    public Player(int x, int y, ID id, Handler handler) {
+    public Player(int x, int y, ID id, Color color, Handler handler) {
         super(x, y, id);
         this.handler = handler;
+        this.color = color;
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 32, 32);
+        return new Rectangle((int)x, (int)y, 32, 32);
     }
 
     public void tick() {
@@ -27,6 +29,8 @@ public class Player extends GameObject {
         x = Game.clamp(x, 0, Game.WIDTH - 40);
         y = Game.clamp(y, 0, Game.HEIGHT - 60);
 
+        handler.addObject(new Trail((int) x, (int) y, ID.Trail, color, 34, 34, 0.05f, handler));
+
         collision(); //checks for collision
     }
 
@@ -35,7 +39,12 @@ public class Player extends GameObject {
 
             GameObject tempObject = handler.object.get(i);
 
-            if (tempObject.getID() == ID.BasicEnemy) {
+            if (tempObject.getID() == ID.T1Enemy) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    //Collision Code
+                    HUD.HEALTH -= 1;
+                }
+            } else if (tempObject.getID() == ID.T2Enemy || tempObject.getID() == ID.T3Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     //Collision Code
                     HUD.HEALTH -= 2;
@@ -45,12 +54,12 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
-        if (id == ID.Player) g.setColor(Color.white);
+        if (id == ID.Player) g.setColor(color);
         else if (id == ID.Player2) g.setColor(Color.blue);
 
         Graphics2D g2d = (Graphics2D) g; //For collision bounds.
         g2d.draw(getBounds());
 
-        //g.fillRect(x ,y, 32, 32);
+        //g.fillRect((int)x ,(int)y, 32, 32);
     }
 }

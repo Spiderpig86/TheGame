@@ -9,7 +9,11 @@ public enum ID {
 
     Player(),
     Player2(),
-    BasicEnemy(),
+    T1Enemy(),
+    T2Enemy(),
+    T3Enemy(),
+    T4Enemy(),
+    God(),
     Trail();
 
 }
