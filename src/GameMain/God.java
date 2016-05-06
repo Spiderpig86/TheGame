@@ -15,50 +15,55 @@ import java.util.Random;
 
 public class God extends GameObject{
 
-
     private Handler handler;
-    private GameObject player;
+    Random r = new Random();
+
+    private int timer = 80;
+    private int timer2 = 50;
 
     public God(int x, int y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
 
-        for (int i = 0; i < handler.object.size(); i++) {
-            if (handler.object.get(i).getID() == ID.Player) player = handler.object.get(i);
-        }
-
         Random r = new Random();
 
-        //velX = r.nextInt(5) + 1;
-        //velY = r.nextInt(5) + 1;
-
-
+        velX = 0;
+        velY = 2;
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int)x, (int)y, 32, 32);
+        return new Rectangle((int)x, (int)y, 96, 96);
     }
 
     public void tick() {
         x += velX;
         y += velY;
 
-        float diffX = x - player.getX() - 8;
-        float diffY = y - player.getY() - 8;
-        float distance = (float) Math.sqrt(((x - player.getX()) * (x - player.getX())) + ((y - player.getY()) * (y - player.getY()))); //distance formula. could use pow();
+        if (timer <= 0)  velY = 0; //stops God from going down.
+        else timer--;
 
-        velX = (float) ((-1.0 / distance) * diffX);
-        velY = (float) ((-1.0 / distance) * diffY);
+        if (timer <= 0)  timer2--; //boss moves horizontally
+        if (timer2 <= 0) {
+            if (velX == 0) velX = 2;
 
-        if (y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; //Keeps entity in bound.
-        if (x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
+            if (velX > 0) //speed up
+                velX += 0.01;
+            else if(velX < 0)
+                velX -= 0.01;
 
-        handler.addObject(new Trail(x, y, ID.Trail, Color.decode("#CACC16"), 24, 24, 0.05f, handler));
+            int spawn = r.nextInt(10); //boss spawns projectiles
+            if (spawn < 2) handler.addObject(new GodProjectile((int)x + 48, (int)y, ID.T1Enemy, handler));
+        }
+
+        //if (y <= 0 || y >= Game.HEIGHT - 96) velY *= -1; //Keeps entity in bound.
+        if (x <= 0 || x >= Game.WIDTH - 96) velX *= -1;
+
+        handler.addObject(new Trail(x, y, ID.Trail, Color.decode("#00278D"), 96, 96, 0.1f, handler));
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.decode("#CACC16"));
-        g.fillRect((int)x, (int)y, 24, 24);
+        g.setColor(Color.decode("#00278D"));
+        g.fillRect((int)x, (int)y, 96, 96);
     }
 }

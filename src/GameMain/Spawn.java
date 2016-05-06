@@ -28,11 +28,11 @@ public class Spawn { //Spawns enemies, keeps track of score.
 
             //Add T1 Square each level.
 
-            handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
+            /*handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
 
             if(hud.getLevel() / 5 == 0 {
                 handler.addObject(new T3Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T3Enemy, handler));
-            }
+            }*/
         }
     }
 }
