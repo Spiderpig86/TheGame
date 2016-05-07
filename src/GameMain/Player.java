@@ -44,10 +44,15 @@ public class Player extends GameObject {
                     //Collision Code
                     HUD.HEALTH -= 1;
                 }
-            } else if (tempObject.getID() == ID.T2Enemy || tempObject.getID() == ID.T3Enemy) {
+            } else if (tempObject.getID() == ID.T2Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     //Collision Code
                     HUD.HEALTH -= 2;
+                }
+            } else if (tempObject.getID() == ID.T3Enemy) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    //Collision Code
+                    HUD.HEALTH -= 5;
                 }
             }
         }
@@ -61,5 +66,9 @@ public class Player extends GameObject {
         g2d.draw(getBounds());
 
         //g.fillRect((int)x ,(int)y, 32, 32);
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

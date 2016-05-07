@@ -10,6 +10,7 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+    public static final Font gameFont = new Font("segoe ui", 0, 14);
 
     private Thread thread;
     private boolean running = false;
@@ -39,10 +40,10 @@ public class Game extends Canvas implements Runnable {
         //handler.addObject(new Player(WIDTH / 2 + 32, HEIGHT /2 + 32, ID.Player2));
 
         for (int i = 0; i < 2; i++) {
-            //handler.addObject(new T1Square(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.T1Enemy, handler));
+            handler.addObject(new T1Square(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.T1Enemy, handler));
         }
 
-        handler.addObject(new God((WIDTH / 2) - 48, -96, ID.God, handler));
+        //handler.addObject(new God((WIDTH / 2) - 48, -96, ID.God, handler));
     }
 
     public synchronized void start() { //Starts thread
@@ -107,6 +108,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black); //Stops screen flicker
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        g.setFont(gameFont);
         g.setColor(Color.white);
         g.drawString("FPS: " + fpsFinal, 10, 20);
 

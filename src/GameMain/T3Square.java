@@ -8,8 +8,8 @@ import java.util.Random;
  */
 
 /*T3 Square Stats:
-    Attack: 2 HP
-    Speed: 5 - 10
+    Attack: 5 HP
+    Speed: 1 - 5
     Special: Smarter AI
  */
 

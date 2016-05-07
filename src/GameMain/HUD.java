@@ -39,13 +39,9 @@ public class HUD {
         g.fillRect(Game.WIDTH / 2 - 100, Game.HEIGHT - 90, (int)(HEALTH * 2), 32);
         g.drawRect(Game.WIDTH / 2 - 100, Game.HEIGHT - 90, 200, 32);
 
+        g.setFont(Game.gameFont);
         g.drawString("Score: " + score, 10, 40);
         g.drawString("Level: " + level, 10, 60);
-
-        /*if (System.currentTimeMillis() - game.getTimer() > 1000) {
-            g.setColor(Color.white);
-            g.drawString("FPS: " + 4, 10, 10);
-        }*/
     }
 
     public void score(int score){
