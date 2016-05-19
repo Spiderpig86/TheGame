@@ -7,10 +7,10 @@ import java.util.Random;
  * Created by Stan on 5/6/2016.
  */
 
-/*T3 Square Stats:
+/*T4 Square Stats:
     Attack: 5 HP
     Speed: 1 - 5
-    Special: Smarter AI
+    Special: Sweeping Motion
  */
 
 public class T4Square extends GameObject{
@@ -21,6 +21,8 @@ public class T4Square extends GameObject{
     
     int startX;
     int startY;
+    
+    boolean isUp;
 
     public T4Square(int x, int y, ID id, Handler handler) {
         super(x, y, id);
@@ -36,10 +38,10 @@ public class T4Square extends GameObject{
 
         Random r = new Random();
 
-        velX = r.nextInt(5) + 1;
-        velY = r.nextInt(5) + 1;
-
-
+        velX = r.nextInt(5) + 5;
+        velY = 0;
+        
+        isUp = (r.nextInt(2) == 1) ? true : false; 
     }
 
     public Rectangle getBounds() {
@@ -50,18 +52,18 @@ public class T4Square extends GameObject{
         x += velX;
         y += velY;
         
-        if (x == startX + 5) {
-            velX = 0;
-            velY = 5;
-        } else if (y == startY + 5) {
-            velX = -5;
-            velY = 0;
-        }  else if (x == startX + 1) {
-            velX = 0;
-            velY = 0;
-        }  else if (y == startY + 5) {
-            velX = -5;
-            velY = 0;
+        if (y <= 0) {
+            isUp = false;
+        } else if (y >= Game.HEIGHT - 32) {
+            isUp = true;
+        }; //Changes increment to up or down.
+        if (x <= 0 || x >= Game.WIDTH - 32) {
+            velX *= -1;
+            if (isUp) {
+                y-=32;
+            } else {
+                y+=32;
+            }
         }
 
         handler.addObject(new Trail(x, y, ID.Trail, Color.decode("#7E3900"), 24, 24, 0.05f, handler));
