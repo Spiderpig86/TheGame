@@ -1,4 +1,4 @@
-package GameMain;
+package src.GameMain;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -10,7 +10,7 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
-    public static final Font gameFont = new Font("segoe ui", 0, 14);
+    public static final Font gameFont = new Font("comic sans ms", 0, 14);
 
     private Thread thread;
     private boolean running = false;
@@ -23,6 +23,13 @@ public class Game extends Canvas implements Runnable {
     long timer;
     int frames = 0;
     int fpsFinal = 0;
+    
+    //BACKGROUND FADE
+    int red, green, blue = 200;
+    
+    int incR = 1;
+    int incG = 2;
+    int incB = 3;
 
     //Constructor
     public Game() {
@@ -42,6 +49,8 @@ public class Game extends Canvas implements Runnable {
         for (int i = 0; i < 2; i++) {
             handler.addObject(new T1Square(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.T1Enemy, handler));
         }
+        
+        //handler.addObject(new Health(15, 15, ID.Health, handler));
 
         //handler.addObject(new God((WIDTH / 2) - 48, -96, ID.God, handler));
     }
@@ -103,13 +112,21 @@ public class Game extends Canvas implements Runnable {
             return;
         }
 
-        Graphics g = bs.getDrawGraphics();
-
-        g.setColor(Color.black); //Stops screen flicker
+        Graphics2D g = (Graphics2D) bs.getDrawGraphics();
+        /*if (red <= 0 || red >= 255) incR *= -1; 
+        if (green <= 0 || green >= 255) incG *= -1; 
+        if (blue <= 0 || blue >= 255) incB *= -1; */
+        
+        red += incR;
+        green += incG;
+        blue += incB;
+        
+        g.setColor(new Color(red, green, blue)); //Stops screen flicker
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setFont(gameFont);
         g.setColor(Color.white);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.drawString("FPS: " + fpsFinal, 10, 20);
 
         handler.render(g);
