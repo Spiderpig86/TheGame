@@ -34,12 +34,13 @@ public class Menu extends MouseAdapter {
 
             //play
             if (mouseOver(mx, my, r1)) {
-                game.gameState = Game.STATE.Game;
+                /*game.gameState = Game.STATE.Game;
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
                 for (int i = 0; i < 2; i++) {
                     handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
-                }
+                }*/
+                game.gameState = Game.STATE.Select;
             }
 
             //help
@@ -50,6 +51,28 @@ public class Menu extends MouseAdapter {
             //quit
             if (mouseOver(mx, my, r3)) {
                 System.exit(1);
+            }
+        } else if (game.gameState == Game.STATE.Select) {
+
+            //normal
+            if (mouseOver(mx, my, r1)) {
+                /*game.gameState = Game.STATE.Game;
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
+                handler.clearEnemies();
+                for (int i = 0; i < 2; i++) {
+                    handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
+                }*/
+                game.gameState = Game.STATE.Select;
+            }
+
+            //hard
+            if (mouseOver(mx, my, r2)) {
+                game.gameState = Game.STATE.Help;
+            }
+
+            //back
+            if (mouseOver(mx, my, r3)) {
+                game.gameState = Game.STATE.Menu;
             }
         }
 
@@ -146,6 +169,27 @@ public class Menu extends MouseAdapter {
             g.setFont(fnt2);
             g.drawRect(r3.x, r3.y, r3.width, r3.height);
             g.drawString("Restart", 270, 390);
+        } else if (game.gameState == Game.STATE.Select) {
+            Font fnt = new Font("segoe ui", 1, 50);
+            Font fnt2 = new Font("segoe ui", 1, 25);
+
+            g.setFont(fnt);
+            g.setColor(Color.white);
+            g.drawString("Select Difficulty", 200, 70);
+
+            g.setFont(fnt2);
+
+            //Play
+            g.drawRect(r1.x, r1.y, r1.width, r1.height);
+            g.drawString("Normal", 290, 190);
+
+            //Help
+            g.drawRect(r2.x, r2.y, r2.width, r2.height);
+            g.drawString("Hard", 290, 290);
+
+            //Quit
+            g.drawRect(r3.x, r3.y, r3.width, r3.height);
+            g.drawString("Back", 290, 390);
         }
     }
 }

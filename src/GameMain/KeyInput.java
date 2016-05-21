@@ -11,9 +11,11 @@ public class KeyInput extends KeyAdapter {
     private Handler handler;
     private boolean[] keyDown = new boolean[4]; //Tells us which keys are pressed. To fix sticky key glitch.
 
+    Game game;
 
-    public KeyInput(Handler handler) {
+    public KeyInput(Handler handler, Game game) {
         this.handler = handler;
+        this.game = game;
 
         keyDown[0] = false; //W
         keyDown[1] = false; //A
@@ -80,6 +82,13 @@ public class KeyInput extends KeyAdapter {
                 if(key == KeyEvent.VK_RIGHT) tempObject.setVelX(0);
 
             }*/
+        }
+
+        if (key == KeyEvent.VK_P) {
+            if (game.gameState == Game.STATE.Game) {
+                if (Game.paused) Game.paused = false;
+                else Game.paused = true;
+            }
         }
 
         if(key == KeyEvent.VK_ESCAPE) System.exit(0);

@@ -18,7 +18,7 @@ public class AudioPlayer { //handles music
 
         try {
 
-            soundMap.put("menu_sound", new Sound("res/click_sound.ogg"));
+            //soundMap.put("menu_sound", new Sound("res/click_sound.ogg"));
             musicMap.put("music", new Music("res/music.ogg"));
 
         } catch (SlickException e) {
