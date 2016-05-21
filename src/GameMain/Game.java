@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable {
         End
     };
 
-    public STATE gameState = STATE.Menu;
+    public static STATE gameState = STATE.Menu;
 
     //Constructor
     public Game() {
@@ -48,6 +48,9 @@ public class Game extends Canvas implements Runnable {
         menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
+
+        AudioPlayer.init();
+        AudioPlayer.getMusic("music").loop();
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
@@ -117,8 +120,8 @@ public class Game extends Canvas implements Runnable {
 
             if (hud.HEALTH  <= 0) {
                 hud.HEALTH = 100;
-                handler.clearEnemies();
                 gameState = STATE.End;
+                handler.clearEnemies();
             }
         } else if (gameState == STATE.Menu || gameState == STATE.End) {
             menu.tick();
@@ -153,7 +156,7 @@ public class Game extends Canvas implements Runnable {
 
         if (gameState == STATE.Game) {
             hud.render(g); //HUD placed under to be placed above environment.
-        } else if (gameState == STATE.Menu || gameState == STATE.Help) {
+        } else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End) {
             menu.render(g);
         }
 

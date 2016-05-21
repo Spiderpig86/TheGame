@@ -34,6 +34,8 @@ public class Handler {
             if (g.getID() == ID.Player) {
                 Player p = (Player)g;
                 object.clear();
+                System.out.println(Game.gameState.toString());
+                if (Game.gameState != Game.STATE.End)
                 addObject(new Player((int)p.getX(), (int)p.getY(), ID.Player, p.getColor(), this));
             }
         }

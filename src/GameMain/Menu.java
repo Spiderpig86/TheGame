@@ -16,9 +16,9 @@ public class Menu extends MouseAdapter {
     private Random r = new Random();
 
     //Button bounds
-    private Rectangle r1 = new Rectangle(210, 150, 200, 64);
-    private Rectangle r2 = new Rectangle(210, 250, 200, 64);
-    private Rectangle r3 = new Rectangle(210, 350, 200, 64);
+    private Rectangle r1 = new Rectangle(215, 150, 200, 64);
+    private Rectangle r2 = new Rectangle(215, 250, 200, 64);
+    private Rectangle r3 = new Rectangle(215, 350, 200, 64);
 
     public Menu(Game g, Handler handler, HUD hud) {
         game = g;
@@ -57,6 +57,21 @@ public class Menu extends MouseAdapter {
         if (game.gameState == Game.STATE.Help) {
             if (mouseOver(mx, my, r3)) {
                 game.gameState = Game.STATE.Menu;
+                return;
+            }
+        }
+
+        //restart
+        if (game.gameState == Game.STATE.End) {
+            if (mouseOver(mx, my, r3)) {
+                game.gameState = Game.STATE.Game;
+                hud.setLevel(1);
+                hud.score(0);
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
+                handler.clearEnemies();
+                for (int i = 0; i < 2; i++) {
+                    handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
+                }
                 return;
             }
         }
@@ -126,11 +141,11 @@ public class Menu extends MouseAdapter {
             g.drawString("Darn.", 250, 70);
 
             g.setFont(fnt3);
-            g.drawString("You lost with a score of: " + hud.getScore(), 75, 200);
+            g.drawString("You lost with a score of: " + hud.getScore(), 170, 200);
 
             g.setFont(fnt2);
             g.drawRect(r3.x, r3.y, r3.width, r3.height);
-            g.drawString("Restart", 290, 390);
+            g.drawString("Restart", 270, 390);
         }
     }
 }
