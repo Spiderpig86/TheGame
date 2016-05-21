@@ -1,4 +1,4 @@
-package src.GameMain;
+package GameMain;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -10,7 +10,7 @@ import java.util.Random;
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
-    public static final Font gameFont = new Font("comic sans ms", 0, 14);
+    public static final Font gameFont = new Font("segoe ui", 0, 14);
 
     private Thread thread;
     private boolean running = false;
@@ -19,40 +19,50 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
+    private Menu menu;
 
     long timer;
     int frames = 0;
     int fpsFinal = 0;
     
     //BACKGROUND FADE
-    int red, green, blue = 200;
+    int red, green, blue = 0;
     
     int incR = 1;
     int incG = 2;
     int incB = 3;
 
+    public enum STATE {
+        Menu,
+        Help,
+        Game,
+        End
+    };
+
+    public STATE gameState = STATE.Menu;
+
     //Constructor
     public Game() {
         handler = new Handler();
+        hud = new HUD(this);
+        menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
-        hud = new HUD(this);
         spawner = new Spawn(handler, hud);
 
         Random r = new Random();
-
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT /2 - 32, ID.Player, Color.white, handler));
         //handler.addObject(new Player(WIDTH / 2 + 32, HEIGHT /2 + 32, ID.Player2));
 
-        for (int i = 0; i < 2; i++) {
-            handler.addObject(new T1Square(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.T1Enemy, handler));
-        }
-        
-        //handler.addObject(new Health(15, 15, ID.Health, handler));
+        if (gameState == STATE.Game) {
 
-        //handler.addObject(new God((WIDTH / 2) - 48, -96, ID.God, handler));
+        } else {
+            for (int i = 0; i < 20; i++) {
+                handler.addObject(new MenuParticle(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.MenuParticle, handler));
+            }
+        }
     }
 
     public synchronized void start() { //Starts thread
@@ -101,8 +111,18 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
-        hud.tick();
-        spawner.tick();
+        if (gameState == STATE.Game) {
+            hud.tick();
+            spawner.tick();
+
+            if (hud.HEALTH  <= 0) {
+                hud.HEALTH = 100;
+                handler.clearEnemies();
+                gameState = STATE.End;
+            }
+        } else if (gameState == STATE.Menu || gameState == STATE.End) {
+            menu.tick();
+        }
     }
 
     private void render() {
@@ -115,11 +135,11 @@ public class Game extends Canvas implements Runnable {
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
         /*if (red <= 0 || red >= 255) incR *= -1; 
         if (green <= 0 || green >= 255) incG *= -1; 
-        if (blue <= 0 || blue >= 255) incB *= -1; */
+        if (blue <= 0 || blue >= 255) incB *= -1;
         
         red += incR;
         green += incG;
-        blue += incB;
+        blue += incB;*/
         
         g.setColor(new Color(red, green, blue)); //Stops screen flicker
         g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -130,7 +150,12 @@ public class Game extends Canvas implements Runnable {
         g.drawString("FPS: " + fpsFinal, 10, 20);
 
         handler.render(g);
-        hud.render(g); //HUD placed under to be placed above environment.
+
+        if (gameState == STATE.Game) {
+            hud.render(g); //HUD placed under to be placed above environment.
+        } else if (gameState == STATE.Menu || gameState == STATE.Help) {
+            menu.render(g);
+        }
 
         g.dispose();
         bs.show();

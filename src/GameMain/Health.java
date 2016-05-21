@@ -1,4 +1,4 @@
-package src.GameMain;
+package GameMain;
 
 import java.awt.*;
 import java.util.Random;

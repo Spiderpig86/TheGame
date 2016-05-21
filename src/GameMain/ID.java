@@ -14,6 +14,7 @@ public enum ID {
     T3Enemy(),
     T4Enemy(),
     God(),
+    MenuParticle,
     Trail();
 
 }
