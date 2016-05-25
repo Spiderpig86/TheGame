@@ -13,6 +13,8 @@ public enum ID {
     T2Enemy(),
     T3Enemy(),
     T4Enemy(),
+    T5Enemy(),
+    Health(),
     God(),
     MenuParticle,
     Trail();

@@ -49,11 +49,22 @@ public class Player extends GameObject {
                     //Collision Code
                     HUD.HEALTH -= 2;
                 }
+            } else if (tempObject.getID() == ID.T5Enemy) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    //Collision Code
+                    HUD.HEALTH -= 3;
+                }
             } else if (tempObject.getID() == ID.T3Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     //Collision Code
                     HUD.HEALTH -= 5;
                 }
+            } else if (tempObject.getID() == ID.Health) {
+                    if (getBounds().intersects(tempObject.getBounds())) {
+                        //Collision Code
+                        HUD.HEALTH -= 100;
+                    }
+                handler.removeObject(tempObject);
             }
         }
     }

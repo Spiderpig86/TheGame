@@ -56,18 +56,28 @@ public class Menu extends MouseAdapter {
 
             //normal
             if (mouseOver(mx, my, r1)) {
-                /*game.gameState = Game.STATE.Game;
+                game.gameState = Game.STATE.Game;
+
+                game.diff = 0;
+
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
                 for (int i = 0; i < 2; i++) {
                     handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
-                }*/
-                game.gameState = Game.STATE.Select;
+                }
             }
 
             //hard
             if (mouseOver(mx, my, r2)) {
-                game.gameState = Game.STATE.Help;
+                game.gameState = Game.STATE.Game;
+
+                game.diff = 1;
+
+                handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
+                handler.clearEnemies();
+                for (int i = 0; i < 5; i++) {
+                    handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
+                }
             }
 
             //back
@@ -92,7 +102,8 @@ public class Menu extends MouseAdapter {
                 hud.score(0);
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
-                for (int i = 0; i < 2; i++) {
+                int j = (game.diff == 1) ? 4 : 2;
+                for (int i = 0; i < j; i++) {
                     handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
                 }
                 return;
@@ -181,15 +192,15 @@ public class Menu extends MouseAdapter {
 
             //Play
             g.drawRect(r1.x, r1.y, r1.width, r1.height);
-            g.drawString("Normal", 290, 190);
+            g.drawString("Normal", 270, 190);
 
             //Help
             g.drawRect(r2.x, r2.y, r2.width, r2.height);
-            g.drawString("Hard", 290, 290);
+            g.drawString("Hard", 285, 290);
 
             //Quit
             g.drawRect(r3.x, r3.y, r3.width, r3.height);
-            g.drawString("Back", 290, 390);
+            g.drawString("Back", 285, 390);
         }
     }
 }
