@@ -11,11 +11,13 @@ public class Player extends GameObject {
     Random r = new Random();
     Handler handler;
     Color color = Color.white;
+    HUD hud;
 
     public Player(int x, int y, ID id, Color color, Handler handler) {
         super(x, y, id);
         this.handler = handler;
         this.color = color;
+        this.hud = handler.getHUD();
     }
 
     public Rectangle getBounds() {
@@ -67,6 +69,13 @@ public class Player extends GameObject {
                 handler.removeObject(tempObject);
             }
         }
+
+        //for HUD transparency
+        if (getBounds().intersects(hud.getBounds()))
+            hud.setTransparency(true);
+        else
+            hud.setTransparency(false);
+
     }
 
     public void render(Graphics g) {

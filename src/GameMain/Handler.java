@@ -12,6 +12,10 @@ public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<GameObject>(); //List of all game objects.
 
+    HUD hud; //stores HUD
+
+    public Handler(HUD hud) { this.hud = hud; }
+
     public void tick() {
         for (int i = 0; i < object.size(); i++) { //Loops through all objects and updates them.
             GameObject tempObject = object.get(i);
@@ -54,4 +58,6 @@ public class Handler {
     public void removeObject(GameObject object) {
         this.object.remove(object);
     }
+
+    public HUD getHUD() { return hud; }
 }

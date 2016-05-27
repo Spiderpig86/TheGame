@@ -17,10 +17,25 @@ public class HUD {
     private int score = 0;
     private int level = 1;
 
+    //location
+    private static int x = Game.WIDTH / 2 - 100;
+    private static int y = Game.HEIGHT - 90;
+
+    //size
+    private static int width = 200;
+    private static int height = 25;
+
     private Game game;
+
+    //transparency detector
+    private boolean isOver = false;
 
     public HUD(Game game) {
         this.game = game;
+    }
+
+    public static Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
     }
 
     public void tick() {
@@ -33,12 +48,16 @@ public class HUD {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.gray);
-        g.fillRect(Game.WIDTH / 2 - 100, Game.HEIGHT - 90, 200, 32);
-        g.setColor(new Color((int)redVal, (int)greenVal, (int)blueVal));
-        g.fillRect(Game.WIDTH / 2 - 100, Game.HEIGHT - 90, (int)(HEALTH * 2), 32);
-        g.drawRect(Game.WIDTH / 2 - 100, Game.HEIGHT - 90, 200, 32);
+        g.setColor(new Color(225,225,225,127));
+        g.fillRect(x, y, 200, 32);
+        if (isOver)
+            g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal, 127));
+         else
+            g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal));
+        g.fillRect(x, y, (int)(HEALTH * 2), 32);
+        g.drawRect(x, y, 200, 32);
 
+        g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal));
         g.setFont(Game.gameFont);
         g.drawString("Score: " + score, 10, 40);
         g.drawString("Level: " + level, 10, 60);
@@ -59,4 +78,6 @@ public class HUD {
     public int getLevel(){
         return level;
     }
+
+    public void setTransparency(boolean t) { isOver = t; }
 }

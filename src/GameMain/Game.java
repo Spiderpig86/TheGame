@@ -31,11 +31,13 @@ public class Game extends Canvas implements Runnable {
     int fpsFinal = 0;
     
     //BACKGROUND FADE
-    int red, green, blue = 0;
+    int red = 10;
+    int green = 10;
+    int blue = 10;
     
     int incR = 1;
-    int incG = 2;
-    int incB = 3;
+    int incG = 1;
+    int incB = 1;
 
     public enum STATE {
         Menu,
@@ -49,8 +51,8 @@ public class Game extends Canvas implements Runnable {
 
     //Constructor
     public Game() {
-        handler = new Handler();
         hud = new HUD(this);
+        handler = new Handler(hud);
         menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
@@ -113,12 +115,31 @@ public class Game extends Canvas implements Runnable {
                 //System.out.println("FPS: " + frames);
                 fpsFinal = frames;
                 frames = 0;
+
+                Random r = new Random();
+
+                incR = r.nextInt(5) + 1;
+                incG = r.nextInt(5) + 1;
+                incB = r.nextInt(5) + 1;
+
+                //System.out.println(red + " " +green + " " +blue );
+
             }
         }
         stop();
     }
 
     private void tick() {
+
+        //color update
+        if (red < 10 || red > 200) incR *= -1;
+        if (green < 10 || green > 200) incG *= -1;
+        if (blue < 10 || blue > 200) incB *= -1;
+
+        red += incR;
+        green += incG;
+        blue += incB;
+
         if (!paused) {
                 handler.tick();
         if (gameState == STATE.Game) {
@@ -145,14 +166,14 @@ public class Game extends Canvas implements Runnable {
 
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
         /*if (red <= 0 || red >= 255) incR *= -1; 
-        if (green <= 0 || green >= 255) incG *= -1; 
+        if (green <= 0 || green >= 255) incG *= -1;
         if (blue <= 0 || blue >= 255) incB *= -1;
-        
+
         red += incR;
         green += incG;
         blue += incB;*/
-        
-        g.setColor(new Color(red, green, blue)); //Stops screen flicker
+
+        g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs( blue))); //Stops screen flicker
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setFont(gameFont);
@@ -197,4 +218,6 @@ public class Game extends Canvas implements Runnable {
     public int getFrames() {
         return frames;
     }
+
+    public HUD getHUD() { return hud; }
 }
