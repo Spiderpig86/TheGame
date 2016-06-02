@@ -9,13 +9,15 @@ public class Spawn { //Spawns enemies, keeps track of score.
 
     private Handler handler;
     private HUD hud;
+    private Game game;
     Random r;
 
     private int scoreKeep = 0;
 
-    public Spawn(Handler handler, HUD hud) {
+    public Spawn(Handler handler, HUD hud, Game game) {
         this.handler = handler;
         this.hud = hud;
+        this.game = game;
         r = new Random();
     }
 
@@ -30,6 +32,8 @@ public class Spawn { //Spawns enemies, keeps track of score.
 
             handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
 
+            handler.addObject(new T1Kill(10, 10, ID.T1Enemy, handler));
+            
             if(hud.getLevel() % 3 == 0 && hud.getLevel() >= 3) {
                 handler.addObject(new T2Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T2Enemy, handler));
             }else if(hud.getLevel() % 4 == 0 && hud.getLevel() >= 4) {

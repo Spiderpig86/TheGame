@@ -31,12 +31,14 @@ public class Game extends Canvas implements Runnable {
     int fpsFinal = 0;
     
     //BACKGROUND FADE
+    boolean isFading = true;
+    
     int red = 10;
     int green = 10;
     int blue = 10;
     
-    int incR = 1;
-    int incG = 1;
+    int incR = 2;
+    int incG = 2;
     int incB = 1;
 
     public enum STATE {
@@ -62,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
-        spawner = new Spawn(handler, hud);
+        spawner = new Spawn(handler, hud, this);
 
         Random r = new Random();
         //handler.addObject(new Player(WIDTH / 2 + 32, HEIGHT /2 + 32, ID.Player2));
@@ -115,12 +117,16 @@ public class Game extends Canvas implements Runnable {
                 //System.out.println("FPS: " + frames);
                 fpsFinal = frames;
                 frames = 0;
+                
+                if (isFading) {
 
                 Random r = new Random();
 
                 incR = r.nextInt(5) + 1;
                 incG = r.nextInt(5) + 1;
                 incB = r.nextInt(5) + 1;
+                
+            }
 
                 //System.out.println(red + " " +green + " " +blue );
 
@@ -172,8 +178,12 @@ public class Game extends Canvas implements Runnable {
         red += incR;
         green += incG;
         blue += incB;*/
-
-        g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs( blue))); //Stops screen flicker
+        
+        if (isFading) 
+            g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs(blue))); //Stops screen flicker
+        else
+            g.setColor(Color.black);
+            
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setFont(gameFont);
@@ -220,4 +230,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     public HUD getHUD() { return hud; }
+    
+    public void setFade(boolean t) { isFading = t; }
 }

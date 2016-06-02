@@ -59,6 +59,8 @@ public class Menu extends MouseAdapter {
                 game.gameState = Game.STATE.Game;
 
                 game.diff = 0;
+                
+                game.setFade(false);
 
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
@@ -72,6 +74,8 @@ public class Menu extends MouseAdapter {
                 game.gameState = Game.STATE.Game;
 
                 game.diff = 1;
+                
+                game.setFade(false);
 
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
