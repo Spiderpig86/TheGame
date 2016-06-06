@@ -32,19 +32,19 @@ public class Spawn { //Spawns enemies, keeps track of score.
 
             handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
 
-            handler.addObject(new T1Kill(10, 10, ID.T1Enemy, handler));
             
             if(hud.getLevel() % 3 == 0 && hud.getLevel() >= 3) {
                 handler.addObject(new T2Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T2Enemy, handler));
             }else if(hud.getLevel() % 4 == 0 && hud.getLevel() >= 4) {
                 handler.addObject(new Health(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Health, handler));
             }else if(hud.getLevel() % 5 == 0 && hud.getLevel() >= 5) {
+                handler.addObject(new T1Kill(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Kill, handler));
                 handler.addObject(new T3Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T3Enemy, handler));
             }else if(hud.getLevel() % 6 == 0 && hud.getLevel() >= 6) {
                 handler.addObject(new T4Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T4Enemy, handler));
-            } else if (hud.getLevel() == 20) {
+            } else if (hud.getLevel() == 2) {
                 handler.clearEnemies();
-                handler.addObject(new God((Game.WIDTH / 2) - 48, -96, ID.God, handler));
+                handler.addObject(new God((Game.WIDTH / 2) - 48, -106, ID.God, handler));
             }
         }
     }

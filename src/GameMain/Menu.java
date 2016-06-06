@@ -64,7 +64,7 @@ public class Menu extends MouseAdapter {
 
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
-                for (int i = 0; i < 2; i++) {
+                 for (int i = 0; i < 2; i++) {
                     handler.addObject(new T1Square(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.T1Enemy, handler));
                 }
             }

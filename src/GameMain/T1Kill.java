@@ -29,17 +29,16 @@ public class T1Kill extends GameObject
 
     public void tick() {
         //stationary does not do update
-        for (int i = 0; i < 1000; i++)
-            isYellow = !isYellow;
+        //for (int i = 0; i < 10000; i++)
+            //if (i > 5000) isYellow = true; else isYellow = false;
     }
 
     public void render(Graphics g) {
-        if (isYellow) {
-            System.out.println("test");
+        //if (isYellow) {
         g.setColor(Color.YELLOW);
-    } else {
+    /*} else {
           g.setColor(Color.BLUE);
-    }
+    }*/
         g.drawRect((int)x, (int)y, 16, 16);
     }
 }

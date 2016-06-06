@@ -64,10 +64,22 @@ public class Player extends GameObject {
             } else if (tempObject.getID() == ID.Health) {
                     if (getBounds().intersects(tempObject.getBounds())) {
                         //Collision Code
-                        HUD.HEALTH -= 100;
+                        HUD.HEALTH += 100;
+                             handler.removeObject(tempObject);
                     }
-                handler.removeObject(tempObject);
+            } else if (tempObject.getID() == ID.T1Kill) {
+                    if (getBounds().intersects(tempObject.getBounds())) {
+                        //Collision Code
+                        for (int j = 0; j < handler.object.size(); j++) {
+                            GameObject cube = handler.object.get(j);
+                            if (cube.getID() == ID.T1Enemy) {
+                                handler.removeObject(cube);
+                            }
+                            }
+                                handler.removeObject(tempObject);
+                    }
             }
+            
         }
 
         //for HUD transparency
