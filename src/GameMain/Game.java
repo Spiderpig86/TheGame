@@ -3,6 +3,8 @@ package GameMain;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Stan on 5/5/2016.
@@ -40,6 +42,8 @@ public class Game extends Canvas implements Runnable {
     int incR = 2;
     int incG = 2;
     int incB = 1;
+
+    boolean isColor = false;
 
     public enum STATE {
         Menu,
@@ -171,18 +175,15 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-        /*if (red <= 0 || red >= 255) incR *= -1; 
-        if (green <= 0 || green >= 255) incG *= -1;
-        if (blue <= 0 || blue >= 255) incB *= -1;
-
-        red += incR;
-        green += incG;
-        blue += incB;*/
         
-        if (isFading) 
+        if (this.gameState != STATE.Game)
             g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs(blue))); //Stops screen flicker
-        else
-            g.setColor(Color.black);
+        else {
+            if (isColor)
+                g.setColor(Color.decode("#8c44d9"));
+            else
+                g.setColor(Color.black);
+        }
             
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -194,8 +195,10 @@ public class Game extends Canvas implements Runnable {
         handler.render(g);
 
         if (paused) {
+            Font fnt = new Font("segoe ui", 1, 36);
+            g.setFont(fnt);
             g.setColor(Color.white);
-            g.drawString("PAUSED", 100, 100);
+            g.drawString("PAUSED", (Game.WIDTH / 2) - 75, 100);
         }
 
         if (gameState == STATE.Game) {
@@ -232,4 +235,6 @@ public class Game extends Canvas implements Runnable {
     public HUD getHUD() { return hud; }
     
     public void setFade(boolean t) { isFading = t; }
+
+    public Spawn getSpawner()  { return spawner; }
 }

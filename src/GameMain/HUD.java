@@ -1,6 +1,8 @@
 package GameMain;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Stan on 5/5/2016.
@@ -30,8 +32,21 @@ public class HUD {
     //transparency detector
     private boolean isOver = false;
 
+    Timer t = new Timer();
+
     public HUD(Game game) {
         this.game = game;
+
+
+            /*t.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (getLevel() == 2) {
+                        game.isColor = !game.isColor;
+                    }
+                }
+            }, 100, 250); //params measured in milliseconds (delay, period)*/
+
     }
 
     public static Rectangle getBounds() {
@@ -80,4 +95,9 @@ public class HUD {
     }
 
     public void setTransparency(boolean t) { isOver = t; }
+
+    public void incLevel() {
+        this.level += 1;
+    }
+
 }

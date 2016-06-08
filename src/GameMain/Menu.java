@@ -104,6 +104,7 @@ public class Menu extends MouseAdapter {
                 game.gameState = Game.STATE.Game;
                 hud.setLevel(1);
                 hud.score(0);
+                game.getSpawner().resetScoreKeep();
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
                 int j = (game.diff == 1) ? 4 : 2;
