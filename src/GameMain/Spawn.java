@@ -1,4 +1,4 @@
-package GameMain;
+ 
 
 import java.util.Random;
 import java.util.Timer;
@@ -69,9 +69,17 @@ public class Spawn { //Spawns enemies, keeps track of score.
                         }
                     },  250, 250); //params measured in milliseconds (delay, period)
                 } else if (hud.getLevel() % 3 == 0) {
-                    for (int i = 1; i < 9; i++) {
+                    for (int i = 1; i < 15; i++) {
                         handler.addObject(new H2Square(Game.WIDTH / 2, (48 * i), ID.T2Enemy, handler));
                     }
+                    
+                 } else if (hud.getLevel() % 3 == 0) {
+                    for (int i = 1; i < 9; i++) {
+                        handler.addObject(new H2Square(Game.WIDTH / 2, (32 * i), ID.T2Enemy, handler));
+                    }
+                    
+                } else if (hud.getLevel() % 5 == 0) {
+                    handler.addObject(new H3Square(Game.WIDTH / 2, Game.HEIGHT / 2, 10, -10, ID.T2Enemy, handler));
                 }
             }
         }

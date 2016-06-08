@@ -1,4 +1,4 @@
-package GameMain;
+ 
 
 /**
  * Created by Stan on 5/5/2016.
@@ -16,6 +16,8 @@ public enum ID {
     T5Enemy(),
     //Hard Enemies
     H1Square(),
+    H2Square(),
+    H3Square(),
     T1Kill(),
     Health(),
     God(),
