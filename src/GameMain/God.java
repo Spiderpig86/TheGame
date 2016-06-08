@@ -1,4 +1,4 @@
-package GameMain;
+ 
 
 import java.awt.*;
 import java.util.Random;
@@ -18,7 +18,7 @@ public class God extends GameObject{
     private Handler handler;
     Random r = new Random();
 
-    private int timer = 80;
+    private int timer = 50;
     private int timer2 = 50;
 
     public God(int x, int y, ID id, Handler handler) {

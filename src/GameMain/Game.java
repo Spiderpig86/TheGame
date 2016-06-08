@@ -237,4 +237,5 @@ public class Game extends Canvas implements Runnable {
     public void setFade(boolean t) { isFading = t; }
 
     public Spawn getSpawner()  { return spawner; }
+    
 }

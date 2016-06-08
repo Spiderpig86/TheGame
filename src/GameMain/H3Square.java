@@ -8,8 +8,8 @@ import java.util.Random;
  */
 
 /*H1 Square Stats:
-    Attack: 1 HP
-    Speed: 10
+    Attack: 2 HP
+    Speed: Variable
  */
 
 public class H3Square extends GameObject{
