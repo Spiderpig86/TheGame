@@ -37,15 +37,16 @@ public class HUD {
     public HUD(Game game) {
         this.game = game;
 
-
-            /*t.scheduleAtFixedRate(new TimerTask() {
+        if (game.diff == 1) {
+            t.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    if (getLevel() == 2) {
+                    if (getLevel() == 5) {
                         game.isColor = !game.isColor;
                     }
                 }
-            }, 100, 250); //params measured in milliseconds (delay, period)*/
+            }, 100, 250); //params measured in milliseconds (delay, period)
+        }
 
     }
 
