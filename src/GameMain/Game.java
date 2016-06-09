@@ -1,4 +1,4 @@
- 
+package GameMain;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -45,6 +45,9 @@ public class Game extends Canvas implements Runnable {
 
     boolean isColor = false;
 
+    //Music Paused
+    boolean isMusicPaused = false;
+
     public enum STATE {
         Menu,
         Select,
@@ -63,8 +66,8 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
 
-        //AudioPlayer.init();
-        //AudioPlayer.getMusic("music").loop();
+        AudioPlayer.init();
+        AudioPlayer.getMusic("music").loop();
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
@@ -237,5 +240,9 @@ public class Game extends Canvas implements Runnable {
     public void setFade(boolean t) { isFading = t; }
 
     public Spawn getSpawner()  { return spawner; }
+
+    public void setMusicPause(boolean b) { isMusicPaused = b; }
+
+    public boolean getMusicPause() { return isMusicPaused; }
     
 }

@@ -105,6 +105,7 @@ public class Menu extends MouseAdapter {
                 hud.setLevel(1);
                 hud.score(0);
                 game.getSpawner().resetScoreKeep();
+                game.getSpawner().resetHardSquareInc();
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));
                 handler.clearEnemies();
                 int j = (game.diff == 1) ? 4 : 2;
@@ -191,7 +192,7 @@ public class Menu extends MouseAdapter {
 
             g.setFont(fnt);
             g.setColor(Color.white);
-            g.drawString("Select Difficulty", 200, 70);
+            g.drawString("Select Difficulty", 150, 70);
 
             g.setFont(fnt2);
 

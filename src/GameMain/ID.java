@@ -1,4 +1,4 @@
- 
+package GameMain;
 
 /**
  * Created by Stan on 5/5/2016.

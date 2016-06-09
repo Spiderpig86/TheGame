@@ -1,4 +1,4 @@
- 
+package GameMain;
 
 import java.util.Random;
 import java.util.Timer;
@@ -16,6 +16,7 @@ public class Spawn { //Spawns enemies, keeps track of score.
     Timer t = new Timer();
 
     int count = 0;
+    int hardSquareInc = 0;
 
     private int scoreKeep = 0;
 
@@ -56,10 +57,11 @@ public class Spawn { //Spawns enemies, keeps track of score.
                 handler.clearEnemies();
                 if (hud.getLevel() % 2 == 0) {
                     count = 0;
+                    hardSquareInc++;
                     t.scheduleAtFixedRate(new TimerTask() {
                         @Override
                         public void run() {
-                            if (count < 6) {
+                            if (count < 6 + hardSquareInc) {
                                 handler.addObject(new H1Square(10 + (80 * count / hud.getLevel()), Game.HEIGHT / 2, ID.T1Enemy, handler));
                                 count++;
                             } else { //causes crash when restarting game after loss
@@ -70,21 +72,21 @@ public class Spawn { //Spawns enemies, keeps track of score.
                     },  250, 250); //params measured in milliseconds (delay, period)
                 } else if (hud.getLevel() % 3 == 0) {
                     for (int i = 1; i < 15; i++) {
-                        handler.addObject(new H2Square(Game.WIDTH / 2, (48 * i), ID.T2Enemy, handler));
+                        handler.addObject(new H2Square(Game.WIDTH / 2, (48 * i), ID.T1Enemy, handler));
                     }
-                    
-                 } else if (hud.getLevel() % 3 == 0) {
-                    for (int i = 1; i < 9; i++) {
-                        handler.addObject(new H2Square(Game.WIDTH / 2, (32 * i), ID.T2Enemy, handler));
-                    }
-                    
+
                 } else if (hud.getLevel() % 5 == 0) {
                     handler.addObject(new H3Square(Game.WIDTH / 2, Game.HEIGHT / 2, 10, -10, ID.T2Enemy, handler));
+                    handler.addObject(new H3Square(Game.WIDTH / 2, Game.HEIGHT / 2, -10, -10, ID.T2Enemy, handler));
+                    handler.addObject(new H3Square(Game.WIDTH / 2, Game.HEIGHT / 2, -10, 10, ID.T2Enemy, handler));
+                    handler.addObject(new H3Square(Game.WIDTH / 2, Game.HEIGHT / 2, 10, 10, ID.T2Enemy, handler));
                 }
             }
         }
     }
 
     public void resetScoreKeep() { this.scoreKeep = 0; }
+
+    public void resetHardSquareInc() { this.hardSquareInc = 0; }
 
 }

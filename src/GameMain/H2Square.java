@@ -1,4 +1,4 @@
- 
+package GameMain;
 
 import java.awt.*;
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
  */
 
 /*H2 Square Stats:
-    Attack: 2 HP
+    Attack: 1 HP
     Speed: 15
     Special: Moves side to side.
  */

@@ -91,7 +91,17 @@ public class KeyInput extends KeyAdapter {
             }
         }
 
-        if(key == KeyEvent.VK_ESCAPE) System.exit(0);
+        if (key == KeyEvent.VK_ESCAPE) System.exit(0);
+
+        if (key == KeyEvent.VK_M) {
+            if (!game.getMusicPause()) {
+                AudioPlayer.getMusic("music").pause();
+                game.setMusicPause(true);
+            } else {
+                AudioPlayer.getMusic("music").resume();
+                game.setMusicPause(false);
+            }
+        }
 
     }
 }
