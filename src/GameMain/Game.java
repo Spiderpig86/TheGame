@@ -183,7 +183,13 @@ public class Game extends Canvas implements Runnable {
             g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs(blue))); //Stops screen flicker
         else {
             if (isColor)
-                g.setColor(Color.decode("#8c44d9"));
+                switch (hud.getLevel()) {
+                    case 5:
+                        g.setColor(Color.decode("#EAE788"));
+                        break;
+                    default:
+
+                }
             else
                 g.setColor(Color.black);
         }

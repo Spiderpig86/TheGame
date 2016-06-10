@@ -41,11 +41,11 @@ public class H3Square extends GameObject{
         if (y <= 0 || y >= Game.HEIGHT - 32) velY *= -1; //Keeps entity in bound.
         if (x <= 0 || x >= Game.WIDTH - 32) velX *= -1;
 
-        handler.addObject(new Trail(x, y, ID.Trail, Color.decode("#00BCCD"), 16, 16, 0.05f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, Color.decode("#EAE788"), 16, 16, 0.05f, handler));
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.decode("#00BCCD"));
+        g.setColor(Color.decode("#EAE788"));
         g.fillRect((int)x, (int)y, 16, 16);
     }
 }
