@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawner;
     private Menu menu;
+    private Shop shop;
 
     long timer;
     int frames = 0;
@@ -52,6 +53,7 @@ public class Game extends Canvas implements Runnable {
         Menu,
         Select,
         Help,
+        Shop,
         Game,
         End
     };
@@ -62,6 +64,7 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         hud = new HUD(this);
         handler = new Handler(hud);
+        shop = new Shop();
         menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
@@ -178,9 +181,9 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-        
+
         if (this.gameState != STATE.Game)
-            g.setColor(new Color(Math.abs(red), Math.abs(green),Math.abs(blue))); //Stops screen flicker
+            g.setColor(new Color(Math.abs(red), Math.abs(green), Math.abs(blue))); //Stops screen flicker
         else {
             if (isColor)
                 switch (hud.getLevel()) {
@@ -193,12 +196,12 @@ public class Game extends Canvas implements Runnable {
             else
                 g.setColor(Color.black);
         }
-            
+
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         g.setFont(gameFont);
         g.setColor(Color.white);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.drawString("FPS: " + fpsFinal, 10, 20);
 
         handler.render(g);
@@ -212,7 +215,9 @@ public class Game extends Canvas implements Runnable {
 
         if (gameState == STATE.Game) {
             hud.render(g); //HUD placed under to be placed above environment.
-        } else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {
+        } else if (gameState == STATE.Shop){
+
+        }else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {
             menu.render(g);
         }
 
