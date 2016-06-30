@@ -104,6 +104,7 @@ public class Menu extends MouseAdapter {
                 game.gameState = Game.STATE.Game;
                 hud.setLevel(1);
                 hud.score(0);
+                game.getShop().resetPurchases();
                 game.getSpawner().resetScoreKeep();
                 game.getSpawner().resetHardSquareInc();
                 handler.addObject(new Player(Game.WIDTH / 2 - 32, Game.HEIGHT / 2 - 32, ID.Player, Color.white, handler));

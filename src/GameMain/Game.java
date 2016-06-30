@@ -157,7 +157,7 @@ public class Game extends Canvas implements Runnable {
         green += incG;
         blue += incB;
 
-        if (!paused) {
+        if (!paused && gameState != STATE.Shop) {
                 handler.tick();
         if (gameState == STATE.Game) {
             hud.tick();
@@ -256,5 +256,7 @@ public class Game extends Canvas implements Runnable {
     public void setMusicPause(boolean b) { isMusicPaused = b; }
 
     public boolean getMusicPause() { return isMusicPaused; }
+
+    public Shop getShop() { return shop; }
     
 }

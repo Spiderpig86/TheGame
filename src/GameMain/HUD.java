@@ -9,6 +9,7 @@ import java.util.TimerTask;
  */
 public class HUD {
 
+    public int extraHP = 0;
     public static float HEALTH  = 100;
 
     //HUD color
@@ -55,10 +56,10 @@ public class HUD {
     }
 
     public void tick() {
-        HEALTH = Game.clamp(HEALTH, 0, 100);
-        greenVal = Game.clamp(greenVal, 0, 255);
+        HEALTH = Game.clamp(HEALTH, 0, 100 + extraHP);
 
-        greenVal = HEALTH * 2;
+        greenVal = (int)(HEALTH / (100 + extraHP) * 255); //gets green value in proportion to total hp
+        greenVal = Game.clamp(greenVal, 0, 255);
 
         score++;
     }
@@ -70,7 +71,7 @@ public class HUD {
             g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal, 127));
          else
             g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal));
-        g.fillRect(x, y, (int)(HEALTH * 2), 32);
+        g.fillRect(x, y, (int)((HEALTH * 200) / (100 + extraHP)), 32);
         g.drawRect(x, y, 200, 32);
 
         g.setColor(new Color((int) redVal, (int) greenVal, (int) blueVal));

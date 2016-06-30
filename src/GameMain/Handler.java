@@ -13,6 +13,7 @@ public class Handler {
     LinkedList<GameObject> object = new LinkedList<GameObject>(); //List of all game objects.
 
     HUD hud; //stores HUD
+    public int spd = 5;
 
     public Handler(HUD hud) { this.hud = hud; }
 
