@@ -32,10 +32,22 @@ public class KeyInput extends KeyAdapter {
             if (tempObject.getID() == ID.Player) {
                 //key events for player 1
 
-                if(key == KeyEvent.VK_W) { tempObject.setVelY(-5); keyDown[0] = true; }
-                if(key == KeyEvent.VK_A) { tempObject.setVelX(-5); keyDown[1] = true; }
-                if(key == KeyEvent.VK_S) { tempObject.setVelY(5); keyDown[2] = true; }
-                if(key == KeyEvent.VK_D) { tempObject.setVelX(5); keyDown[3] = true; }
+                if (key == KeyEvent.VK_W) {
+                    tempObject.setVelY(-5);
+                    keyDown[0] = true;
+                }
+                if (key == KeyEvent.VK_A) {
+                    tempObject.setVelX(-5);
+                    keyDown[1] = true;
+                }
+                if (key == KeyEvent.VK_S) {
+                    tempObject.setVelY(5);
+                    keyDown[2] = true;
+                }
+                if (key == KeyEvent.VK_D) {
+                    tempObject.setVelX(5);
+                    keyDown[3] = true;
+                }
 
             }
 
@@ -101,6 +113,11 @@ public class KeyInput extends KeyAdapter {
                 AudioPlayer.getMusic("music").resume();
                 game.setMusicPause(false);
             }
+        }
+
+        if (key == KeyEvent.VK_SPACE) { //sets toggle for game and shop
+            if (Game.gameState == Game.STATE.Game) Game.gameState = Game.STATE.Shop;
+            else  if (Game.gameState == Game.STATE.Shop) Game.gameState = Game.STATE.Game;
         }
 
     }

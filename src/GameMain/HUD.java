@@ -77,6 +77,7 @@ public class HUD {
         g.setFont(Game.gameFont);
         g.drawString("Score: " + score, 10, 40);
         g.drawString("Level: " + level, 10, 60);
+        g.drawString("Press space for shop", 10,80);
     }
 
     public void score(int score){

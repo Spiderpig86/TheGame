@@ -64,10 +64,11 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         hud = new HUD(this);
         handler = new Handler(hud);
-        shop = new Shop();
+        shop = new Shop(handler, hud);
         menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
+        this.addMouseListener(shop);
 
         AudioPlayer.init();
         AudioPlayer.getMusic("music").loop();
@@ -204,8 +205,6 @@ public class Game extends Canvas implements Runnable {
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.drawString("FPS: " + fpsFinal, 10, 20);
 
-        handler.render(g);
-
         if (paused) {
             Font fnt = new Font("segoe ui", 1, 36);
             g.setFont(fnt);
@@ -215,10 +214,12 @@ public class Game extends Canvas implements Runnable {
 
         if (gameState == STATE.Game) {
             hud.render(g); //HUD placed under to be placed above environment.
+            handler.render(g);
         } else if (gameState == STATE.Shop){
-
+            shop.render(g);
         }else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select) {
             menu.render(g);
+            handler.render(g);
         }
 
         g.dispose();
