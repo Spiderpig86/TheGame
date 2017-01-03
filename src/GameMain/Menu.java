@@ -20,6 +20,10 @@ public class Menu extends MouseAdapter {
     private Rectangle r2 = new Rectangle(215, 250, 200, 64);
     private Rectangle r3 = new Rectangle(215, 350, 200, 64);
 
+    private Color menuBtnCol1 = Color.blue;
+    private Color menuBtnCol2 = Color.blue;
+    private Color menuBtnCol3 = Color.blue;
+
     public Menu(Game g, Handler handler, HUD hud) {
         game = g;
         this.handler = handler;
@@ -123,6 +127,37 @@ public class Menu extends MouseAdapter {
 
     }
 
+    public void mouseMoved(MouseEvent e) {
+        // Get the mouse positions
+        int mx = e.getX();
+        int my = e.getY();
+
+        if (game.gameState == Game.STATE.Menu) {
+
+            //play
+            if (mouseOver(mx, my, r1)) {
+               menuBtnCol1 = Color.blue;
+            } else {
+                menuBtnCol1 = Color.white;
+            }
+
+            //help
+            if (mouseOver(mx, my, r2)) {
+                menuBtnCol2 = Color.green;
+            } else {
+                menuBtnCol2 = Color.white;
+            }
+
+            //quit
+            if (mouseOver(mx, my, r3)) {
+                menuBtnCol3 = Color.red;
+            } else {
+                menuBtnCol3 = Color.white;
+            }
+        }
+
+    }
+
     private boolean mouseOver(int mx, int my, Rectangle rect) { //checks if mouse pos is in bounds of button
         if (mx > rect.x && mx < rect.x + rect.width) {
             if (my > rect.y && my < rect.y + rect.height) {
@@ -132,7 +167,30 @@ public class Menu extends MouseAdapter {
     }
 
     public void tick() {
+        if (menuBtnCol1 == Color.white) { // Enlarge button
+            r1.x += (235 - r1.x) * 0.05; // 210
+            r1.width += (200 - r1.width) * 0.05; // 200
+        } else { // Revert the buttons back
+            r1.x += (180 - r1.x) * 0.05; // 210
+            r1.width += (280 - r1.width) * 0.05; // 200
 
+        }
+
+        if (menuBtnCol2 == Color.white) {
+            r2.x += (235 - r2.x) * 0.05; // 210
+            r2.width += (200 - r2.width) * 0.05; // 200
+        } else {
+            r2.x += (180 - r2.x) * 0.05; // 210
+            r2.width += (280 - r2.width) * 0.05; // 200
+        }
+
+        if (menuBtnCol3 == Color.white) {
+            r3.x += (235 - r3.x) * 0.05; // 210
+            r3.width += (200 - r3.width) * 0.05; // 200
+        } else {
+            r3.x += (180 - r3.x) * 0.05; // 210
+            r3.width += (280 - r3.width) * 0.05; // 200
+        }
     }
 
     public void render(Graphics g) { //draws menu
@@ -146,15 +204,20 @@ public class Menu extends MouseAdapter {
 
             g.setFont(fnt2);
 
+            g.setColor(menuBtnCol1);
+
             //Play
+            g.setColor(menuBtnCol1);
             g.drawRect(r1.x, r1.y, r1.width, r1.height);
             g.drawString("Play", 290, 190);
 
             //Help
+            g.setColor(menuBtnCol2);
             g.drawRect(r2.x, r2.y, r2.width, r2.height);
             g.drawString("Help", 290, 290);
 
             //Quit
+            g.setColor(menuBtnCol3);
             g.drawRect(r3.x, r3.y, r3.width, r3.height);
             g.drawString("Quit", 290, 390);
         } else if (game.gameState == Game.STATE.Help) {

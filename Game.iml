@@ -54,5 +54,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="slick" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>

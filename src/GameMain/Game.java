@@ -66,12 +66,14 @@ public class Game extends Canvas implements Runnable {
         handler = new Handler(hud);
         shop = new Shop(handler, hud);
         menu = new Menu(this, handler, hud);
+        // Add all the listeners
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(menu);
+        this.addMouseMotionListener(menu);
         this.addMouseListener(shop);
 
-        AudioPlayer.init();
-        AudioPlayer.getMusic("music").loop();
+        //AudioPlayer.init();
+        //AudioPlayer.getMusic("music").loop();
 
         new Window(WIDTH, HEIGHT, "Perimeter 2.0?", this);
 
